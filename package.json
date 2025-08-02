@@ -6,7 +6,8 @@
     "type": "module",
     "scripts": {
         "test:web": "tsx examples/web-test.ts",
-        "test:web:eo": "tsx examples/web-test-eo.ts",
+        "test:web:eo:login": "tsx examples/web-test-eo-login.ts",
+        "test:web:eo:context": "tsx examples/web-test-eo-context.ts",
         "test:web:vz": "tsx examples/web-test-vz.ts",
         "test:android": "tsx examples/android-test.ts",
         "test:headless": "tsx examples/web-test.ts --headless",

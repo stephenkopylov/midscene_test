@@ -1,4 +1,4 @@
-import { chromium, type Browser, type Page } from 'playwright';
+import { chromium, type Browser } from 'playwright';
 import { PlaywrightAgent } from '@midscene/web/playwright';
 import 'dotenv/config';
 
@@ -13,6 +13,9 @@ interface TestConfig {
     url: string;
     login: string;
     password: string;
+    cookies_url: string;
+    cookies_token: string;
+    cookies_tokenDemo: string;
 }
 
 const config: TestConfig = {
@@ -24,6 +27,9 @@ const config: TestConfig = {
     url: process.env.TEST_URL || '',
     login: process.env.TEST_LOGIN || '',
     password: process.env.TEST_PASSWORD || '',
+    cookies_url: process.env.COOKIES_URL || '',
+    cookies_token: process.env.COOKIES_TOKEN || '',
+    cookies_tokenDemo: process.env.COOKIES_TOKEN_DEMO || '',
 };
 
 async function checkForGenericPopup(agent: PlaywrightAgent): Promise<void> {
@@ -36,7 +42,6 @@ async function checkForGenericPopup(agent: PlaywrightAgent): Promise<void> {
     }
 }
 
-
 async function runDemoTest(): Promise<void> {
     let browser: Browser | undefined;
 
@@ -45,10 +50,25 @@ async function runDemoTest(): Promise<void> {
 
         // Launch browser
         browser = await chromium.launch({
-            headless: config.headless
+            headless: config.headless,
         });
 
-        const page = await browser.newPage();
+        const context = await browser.newContext();
+
+        await context.addCookies([
+            {
+                name: 'token',
+                value: config.cookies_token,
+                url: config.cookies_url,
+            },
+            {
+                name: 'tokenDemo',
+                value: config.cookies_tokenDemo,
+                url: config.cookies_url,
+            },
+        ]);
+
+        const page = await context.newPage();
         await page.setViewportSize({
             width: 1280,
             height: 768,
@@ -57,31 +77,13 @@ async function runDemoTest(): Promise<void> {
 
         const agent = new PlaywrightAgent(page);
 
-        await agent.ai('Wait for page to load');
+        await checkForGenericPopup(agent);
 
-        // await checkForGenericPopup(agent);
+        await agent.ai('Tap "Real Balance" button in the top panel');
 
-        await agent.ai('Close all popups, tutorials and tooltips and press Register button in left bottom corner');
+        await agent.ai('Select "Demo Balance" in the popup');
 
-        await agent.ai('Go to "Login" section and login using credentials - email: ' + config.login + ' and password: ' + config.password);
-
-        await agent.ai('If there is captcha, solve it and continue login');
-
-        // await agent.aiInput(config.login, '"Email" input field');
-
-        // await agent.aiInput(config.password, '"Password" input field');
-
-        // await agent.aiKeyboardPress('Enter');
-
-        // await checkForGenericPopup(agent);
-
-        await agent.ai('Close all popups if there are any');
-
-        await agent.ai('Tap User balance on the top panel and select Demo Balance in the popup');
-
-        await agent.ai('Tap "Buy" button on the bottom');
-
-        await agent.ai('Tap "Sell" button on the bottom');
+        await agent.ai('Tap "Buy" button on the bottom and then "Sell" button on the bottom');
 
         await browser.close();
 
