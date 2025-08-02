@@ -16,8 +16,8 @@ interface TestConfig {
 const config: TestConfig = {
     headless: process.env.HEADLESS === 'true',
     viewport: {
-        width: 800,
-        height: 800,
+        width: 1280,
+        height: 720,
     },
     url: 'https://demo.playwright.dev/todomvc',
 };
@@ -30,8 +30,7 @@ async function runDemoTest(): Promise<void> {
 
         // Launch browser
         browser = await chromium.launch({
-            headless: config.headless,
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            headless: config.headless
         });
 
         const page: Page = await browser.newPage();
@@ -45,10 +44,14 @@ async function runDemoTest(): Promise<void> {
 
         // Demo test steps
         console.log('📝 Adding first todo item...');
-        await agent.aiAction('type "Buy milk" in the input field and press Enter');
+        await agent.aiAction('type "Buy milk" in the input field');
+
+        await agent.aiAction('press "Enter" key');
 
         console.log('📝 Adding second todo item...');
-        await agent.aiAction('type "Walk the dog" in the input field and press Enter');
+        await agent.aiAction('type "Walk the dog" in the input field');
+
+        await agent.aiAction('press "Enter" key');
 
         console.log('✅ Marking first todo as completed...');
         await agent.aiAction('click the checkbox next to "Buy milk" to mark it as completed');

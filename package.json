@@ -2,14 +2,14 @@
     "name": "midscene-test",
     "version": "1.0.0",
     "description": "Midscene testing demo project",
-    "main": "examples/demo-test.ts",
+    "main": "examples/web-test.ts",
     "type": "module",
     "scripts": {
-        "test": "tsx examples/demo-test.ts",
+        "test:web": "tsx examples/web-test.ts",
         "test:android": "tsx examples/android-test.ts",
-        "test:headless": "tsx examples/demo-test.ts --headless",
+        "test:headless": "tsx examples/web-test.ts --headless",
         "build": "tsc",
-        "dev": "tsx watch examples/demo-test.ts",
+        "dev": "tsx watch examples/web-test.ts",
         "install-browsers": "playwright install"
     },
     "keywords": [
@@ -21,15 +21,15 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
-        "@playwright/test": "^1.54.1",
+        "@midscene/web": "^0.24.1",
+        "@playwright/test": "^1.54.2",
         "@types/node": "^24.1.0",
+        "playwright": "^1.54.2",
         "tsx": "^4.20.3",
         "typescript": "^5.8.3"
     },
     "dependencies": {
         "@midscene/android": "^0.23.4",
-        "@midscene/web": "^0.23.4",
-        "dotenv": "^17.2.1",
-        "playwright": "^1.54.1"
+        "dotenv": "^17.2.1"
     }
 }

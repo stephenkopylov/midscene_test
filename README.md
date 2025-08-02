@@ -27,7 +27,7 @@ EMULATOR_TIMEOUT=120000
 ## Run
 
 ```bash
-npm test          # Run web demo test
+npm run test:web  # Run web demo test
 npm run test:android  # Run Android demo test (auto-starts emulator)
 npm run dev       # Development mode
 npm run build     # Build TypeScript
