@@ -57,27 +57,31 @@ async function runDemoTest(): Promise<void> {
 
         const agent = new PlaywrightAgent(page);
 
-        await checkForGenericPopup(agent);
+        await agent.ai('Wait for page to load');
 
-        await agent.ai('press Register button in left bottom corner');
+        // await checkForGenericPopup(agent);
 
-        await agent.ai('go to "Login" section');
+        await agent.ai('Close all popups, tutorials and tooltips and press Register button in left bottom corner');
 
-        await agent.ai(`type "${config.login}" in the email field`);
+        await agent.ai('Go to "Login" section and login using credentials - email: ' + config.login + ' and password: ' + config.password);
 
-        await agent.ai(`type "${config.password}" in the "password" field`);
+        await agent.ai('If there is captcha, solve it and continue login');
 
-        await agent.aiKeyboardPress('Enter');
+        // await agent.aiInput(config.login, '"Email" input field');
 
-        await checkForGenericPopup(agent);
+        // await agent.aiInput(config.password, '"Password" input field');
 
-        await agent.ai('Tap User balance on the top panel');
+        // await agent.aiKeyboardPress('Enter');
 
-        await agent.ai('Select Demo Balance');
+        // await checkForGenericPopup(agent);
 
-        await agent.aiTap('Buy button on the bottom', { deepThink: true });
+        await agent.ai('Close all popups if there are any');
 
-        await agent.aiTap('Sell button on the bottom', { deepThink: true });
+        await agent.ai('Tap User balance on the top panel and select Demo Balance in the popup');
+
+        await agent.ai('Tap "Buy" button on the bottom');
+
+        await agent.ai('Tap "Sell" button on the bottom');
 
         await browser.close();
 
@@ -87,7 +91,7 @@ async function runDemoTest(): Promise<void> {
     } finally {
         if (browser) {
             await browser.close();
-            console.log('🔒 Browser closed');
+            console.log('🔒 Web test completed');
         }
     }
 }
