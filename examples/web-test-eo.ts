@@ -67,7 +67,7 @@ async function runDemoTest(): Promise<void> {
 
         await agent.ai(`type "${config.password}" in the "password" field`);
 
-        await agent.ai('hit "Enter" key');
+        await agent.aiKeyboardPress('Enter');
 
         await checkForGenericPopup(agent);
 
@@ -78,7 +78,6 @@ async function runDemoTest(): Promise<void> {
         await agent.aiTap('Buy button on the bottom', { deepThink: true });
 
         await agent.aiTap('Sell button on the bottom', { deepThink: true });
-
 
         await browser.close();
 
