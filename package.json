@@ -6,6 +6,7 @@
     "type": "module",
     "scripts": {
         "test:web": "tsx examples/web-test.ts",
+        "test:web:eo": "tsx examples/web-test-eo.ts",
         "test:android": "tsx examples/android-test.ts",
         "test:headless": "tsx examples/web-test.ts --headless",
         "build": "tsc",
