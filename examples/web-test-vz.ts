@@ -50,8 +50,8 @@ async function runDemoTest(): Promise<void> {
 
         const page = await browser.newPage();
         await page.setViewportSize({
-            width: 1280,
-            height: 768,
+            width: 800,
+            height: 800,
         });
         await page.goto(config.url);
 
@@ -59,21 +59,19 @@ async function runDemoTest(): Promise<void> {
 
         await agent.ai('Accept all cookies');
 
-        // await agent.ai('Tap "Contact Us" on the top of the page');
+        await agent.ai('Tap "Contact Us" on the top of the page');
 
-        // await agent.ai('Fill the Name field with "John Doe"');
+        await agent.ai('Fill the Name field with "John Doe"');
 
-        // await agent.ai('Fill the Work Email field with "john.doe@example.com"');
+        await agent.ai('Fill the Work Email field with "john.doe@example.com"');
 
-        // await agent.ai('Fill the Question field with "Hello, I have a question"');
+        await agent.ai('Fill the Question field with "Hello, I have a question"');
 
-        // await agent.ai('Close this form');
+        await agent.ai('Close this form');
 
         await agent.ai('Scroll the page all the way down, competely');
 
         await agent.ai('tap to the button with color scheme at bottom left corner and change it to "Dark"');
-
-        // await agent.ai('Fill the form with the following data: Name: John Doe, Work Email: john.doe@example.com, Question: Hello, I have a question');
 
         await browser.close();
 
