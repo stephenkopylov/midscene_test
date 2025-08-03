@@ -83,7 +83,9 @@ async function runDemoTest(): Promise<void> {
 
         await agent.ai('Select "Demo Balance" in the popup');
 
-        await agent.ai('Tap "Buy" button on the bottom and then "Sell" button on the bottom');
+        await agent.ai('Tap "Buy" button - at the bottom');
+
+        await agent.ai('Tap "Sell" button - at the bottom');
 
         await browser.close();
 
