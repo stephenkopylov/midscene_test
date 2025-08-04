@@ -44,20 +44,20 @@ async function runDemoTest(): Promise<void> {
 
         // Demo test steps
         console.log('📝 Adding first todo item...');
-        await agent.aiAction('type "Buy milk" in the input field');
+        await agent.ai('type "Buy milk"');
 
-        await agent.aiAction('press "Enter" key');
+        await agent.ai('press "Enter" key');
 
         console.log('📝 Adding second todo item...');
-        await agent.aiAction('type "Walk the dog" in the input field');
+        await agent.ai('type "Walk the dog" in the input field');
 
-        await agent.aiAction('press "Enter" key');
+        await agent.ai('press "Enter" key');
 
         console.log('✅ Marking first todo as completed...');
-        await agent.aiAction('click the checkbox next to "Buy milk" to mark it as completed');
+        await agent.ai('click the checkbox next to "Buy milk" to mark it as completed');
 
         console.log('🗑️ Deleting second todo...');
-        await agent.aiAction('hover over "Walk the dog" and click the delete button');
+        await agent.ai('hover over "Walk the dog" and click the delete button');
 
         console.log('🎉 Demo test completed successfully!');
 

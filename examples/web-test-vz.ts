@@ -57,7 +57,18 @@ async function runDemoTest(): Promise<void> {
 
         const agent = new PlaywrightAgent(page);
 
+        const test = await agent.aiQuery('Get all items of top menu');
+        console.log(test);
+
+
+
         await agent.ai('Accept all cookies');
+
+        await agent.ai('Go to Pricing page');
+
+        const prices = await agent.aiQuery('Get the list of prices for all plans in format [{plan_name: "The name of the plan", price: "The price of the plan"}] (Price should be in just a number!)');
+
+        console.log(prices);
 
         await agent.ai('Tap "Contact Us" in menu at the top of the page');
 

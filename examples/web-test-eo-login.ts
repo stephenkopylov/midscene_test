@@ -58,9 +58,18 @@ async function runDemoTest(): Promise<void> {
 
         await checkForGenericPopup(agent);
 
+        const balance = await agent.aiQuery('Get balance of the user (it will be number in USD ), return it in format {balance: The balance of the user}');
+        console.log(balance);
+
+        if (balance.balance == 10000) {
+            console.log('🔍 Balance is 10000, everything is ok');
+        }
+
+        await agent.ai('Go to Settings page and choose Dark theme');
+
         await agent.ai('Tap "Register" button in left bottom corner');
 
-        await agent.ai('Go to "Login" section');
+        await agent.ai('Go to "Login" tab (on the top of the page)');
 
         await agent.ai('Login using credentials email: ' + config.login + ' and password: ' + config.password);
 
