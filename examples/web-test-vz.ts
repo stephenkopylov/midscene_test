@@ -66,7 +66,7 @@ async function runDemoTest(): Promise<void> {
 
         await agent.ai('Go to Pricing page');
 
-        const prices = await agent.aiQuery('Get the list of prices for all plans in format [{plan_name: "The name of the plan", price: "The price of the plan"}] (Price should be in just a number!)');
+        const prices = await agent.aiQuery('Get the list of prices for all plans in format [{plan_name: "The name of the plan", price_montly: "The price of the plan", price_yearly: "The price of the plan"}] (Price should be in just a number)');
 
         console.log(prices);
 
