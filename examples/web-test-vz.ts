@@ -58,9 +58,10 @@ async function runDemoTest(): Promise<void> {
         const agent = new PlaywrightAgent(page);
 
         const test = await agent.aiQuery('Get all items of top menu');
-        console.log(test);
+        console.log(`menu items = ${test}`);
 
-
+        const number_of_menu_items = await agent.aiQuery('Get number of items of top menu and return as a number');
+        console.log(`number of menu items = ${number_of_menu_items}`);
 
         await agent.ai('Accept all cookies');
 
