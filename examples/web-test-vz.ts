@@ -65,9 +65,9 @@ async function runDemoTest(): Promise<void> {
 
         await agent.ai('Fill the "Work Email" field with "john.doe@example.com"');
 
-        await agent.ai('Fill the "Question" field with "Hello, I have a question"');
+        await agent.ai('Fill the "Question" field with "Hello, I have a question" and close this form by pressing "X" button at the top right corner');
 
-        await agent.ai('Close this contact form by pressing "X" button');
+        // await agent.ai('Close this contact form by pressing "X" button');
 
         await agent.ai('Scroll the page all the way down, competely');
 
