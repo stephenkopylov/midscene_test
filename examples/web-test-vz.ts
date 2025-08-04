@@ -61,13 +61,13 @@ async function runDemoTest(): Promise<void> {
 
         await agent.ai('Tap "Contact Us" in menu at the top of the page');
 
-        await agent.ai('Fill the Name field with "John Doe"');
+        await agent.ai('Fill the "Name" field with "John Doe"');
 
-        await agent.ai('Fill the Work Email field with "john.doe@example.com"');
+        await agent.ai('Fill the "Work Email" field with "john.doe@example.com"');
 
-        await agent.ai('Fill the Question field with "Hello, I have a question"');
+        await agent.ai('Fill the "Question" field with "Hello, I have a question"');
 
-        await agent.ai('Close this form');
+        await agent.ai('Close this contact form by pressing "X" button');
 
         await agent.ai('Scroll the page all the way down, competely');
 
