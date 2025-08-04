@@ -50,7 +50,7 @@ async function runDemoTest(): Promise<void> {
 
         const page = await browser.newPage();
         await page.setViewportSize({
-            width: 800,
+            width: 1200,
             height: 800,
         });
         await page.goto(config.url);
@@ -59,7 +59,7 @@ async function runDemoTest(): Promise<void> {
 
         await agent.ai('Accept all cookies');
 
-        await agent.ai('Tap "Contact Us" on the top of the page');
+        await agent.ai('Tap "Contact Us" in menu at the top of the page');
 
         await agent.ai('Fill the Name field with "John Doe"');
 
