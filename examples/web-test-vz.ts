@@ -64,9 +64,13 @@ async function runDemoTest(): Promise<void> {
         const number_of_menu_items = await agent.aiQuery('Get number of items of top menu and return as a number');
         console.log(`number of menu items = ${number_of_menu_items}`);
 
+        await agent.aiWaitFor("Cookies popup is shown");
+
         await agent.ai('Accept all cookies');
 
         await agent.ai('Go to Pricing page');
+
+        await agent.ai('Scroll down a little bit to see all details of plans');
 
         const prices = await agent.aiQuery('Get the list of prices for all plans in format [{plan_name: "The name of the plan", price_montly: "The price of the plan", price_yearly: "The price of the plan"}] (Price should be in just a number)');
 
@@ -82,11 +86,11 @@ async function runDemoTest(): Promise<void> {
 
         await agent.ai('Close popup with form by pressing "X" button');
 
-        await agent.ai('Accept all cookies');
-
         await agent.ai('Scroll the page all the way down, competely');
 
-        await agent.ai('Change the color theme tapping the button at bottom **left** corner and change it to "Dark" by default its "Auto"');
+        await sleep(1000); //wait for the page to be scrolled all the way down
+
+        await agent.aiTap('Color theme button at bottom left corner');
 
         await agent.aiWaitFor('The theme is changed to "Dark"');
 
