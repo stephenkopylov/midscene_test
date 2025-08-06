@@ -26,13 +26,28 @@ const config: TestConfig = {
     password: process.env.TEST_PASSWORD || '',
 };
 
-async function checkForGenericPopup(agent: PlaywrightAgent): Promise<void> {
-    const isGenericPopupExists = await agent.aiBoolean(
-        'Whether there is a popup with "Allow" and "Cancel" or "Skip" or "Close" buttons?',
+
+
+async function checkForGenericPopup(agent: PlaywrightAgent): Promise<boolean> {
+    return agent.aiBoolean(
+        'Is there any popup or tooltip?',
     );
+}
+
+async function closeGenericPopup(agent: PlaywrightAgent): Promise<void> {
+    await agent.aiAction('If there is any popup or tooltip - close it. Some popups require pressing "Confirm" button to close"');
+
+    await sleep(500);
+}
+
+
+const checkForGenericPopupAndClose = async (agent: PlaywrightAgent): Promise<void> => {
+    await closeGenericPopup(agent);
+
+    const isGenericPopupExists = await checkForGenericPopup(agent);
 
     if (isGenericPopupExists) {
-        await agent.aiAction('close popup');
+        await checkForGenericPopupAndClose(agent);
     }
 }
 
@@ -55,25 +70,32 @@ async function runDemoTest(): Promise<void> {
         await page.goto(config.url);
 
         const agent = new PlaywrightAgent(page);
+        agent.setAIActionContext(`Use action "Tap" instead of "Click"`)
 
-        await checkForGenericPopup(agent);
+        await checkForGenericPopupAndClose(agent);
 
-        const balance = await agent.aiQuery('Get balance of the user (it will be number in USD ), return it in format {balance: The balance of the user}');
+        const balance = await agent.aiNumber('Get balance of the user (it will be number in USD )');
         console.log(balance);
 
-        if (balance.balance == 10000) {
+        if (balance == 10000) {
             console.log('🔍 Balance is 10000, everything is ok');
         }
 
+        console.log('🔍 Going to Settings page and choosing Dark theme');
         await agent.ai('Go to Settings page and choose Dark theme');
 
+        console.log('🔍 Going to Register page');
         await agent.ai('Tap "Register" button in left bottom corner');
 
+        console.log('🔍 Going to Login page');
         await agent.ai('Go to "Login" tab (on the top of the page)');
 
-        await agent.ai('Login using credentials email: ' + config.login + ' and password: ' + config.password);
+        console.log('🔍 Logging in');
+        await agent.ai('Type ' + config.login + ' in "email" field')
+        await agent.ai('Type ' + config.password + ' in "password" field')
+        await agent.aiKeyboardPress('Enter')
 
-        await checkForGenericPopup(agent);
+        await agent.ai('Wait for login to complete (platform should load again)')
 
         await browser.close();
 

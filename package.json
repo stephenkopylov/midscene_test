@@ -24,7 +24,7 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
-        "@midscene/web": "^0.24.1",
+        "@midscene/web": "^0.25.0",
         "@playwright/test": "^1.54.2",
         "@types/node": "^24.1.0",
         "playwright": "^1.54.2",
@@ -32,7 +32,7 @@
         "typescript": "^5.8.3"
     },
     "dependencies": {
-        "@midscene/android": "^0.23.4",
+        "@midscene/android": "^0.25.0",
         "dotenv": "^17.2.1"
     }
 }
