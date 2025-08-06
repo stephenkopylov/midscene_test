@@ -56,6 +56,7 @@ async function runDemoTest(): Promise<void> {
         await page.goto(config.url);
 
         const agent = new PlaywrightAgent(page);
+        agent.setAIActionContext(`Use action "Tap" instead of "Click"`)
 
         const test = await agent.aiQuery('Get all items of top menu');
         console.log(`menu items = ${test}`);
@@ -73,17 +74,21 @@ async function runDemoTest(): Promise<void> {
 
         await agent.ai('Tap "Contact Us" in menu at the top of the page');
 
-        await agent.ai('Fill the "Name" field with "John Doe"');
+        await agent.ai('Type "John Doe" in "Full Name" field');
 
-        await agent.ai('Fill the "Work Email" field with "john.doe@example.com"');
+        await agent.ai('Type "john.doe@example.com" in "Work Email" field');
 
-        await agent.ai('Fill the "Ask your Question" field with "Hello, I have a question"');
+        await agent.ai('Type "Hello, I have a question" in "Ask your Question" field');
 
         await agent.ai('Close popup with form by pressing "X" button');
 
+        await agent.ai('Accept all cookies');
+
         await agent.ai('Scroll the page all the way down, competely');
 
-        await agent.ai('tap to the button with color scheme at bottom left corner and change it to "Dark"');
+        await agent.ai('Change the color theme tapping the button at bottom **left** corner and change it to "Dark" by default its "Auto"');
+
+        await agent.aiWaitFor('The theme is changed to "Dark"');
 
         await browser.close();
 
